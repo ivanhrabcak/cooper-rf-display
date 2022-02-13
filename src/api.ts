@@ -18,6 +18,7 @@ type Measurement = {
     illuminance: number,
     motion_count: number,
     orientation: number,
+    co2_concentration: number,
     press_count: number,
     pressure: number,
     sequence: number,
@@ -85,7 +86,7 @@ const getAllStations = async (): Promise<Array<Station>> => {
     });
 }
 
-const getDataFromDate = async (format: Format, date: Date) => {
+const getDataFromDate = async (format: Format, date: Date): Promise<Array<StationMeasurements>> => {
     const formattedDate = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`;
     const formatString = format === Format.JSON ? "json" : "text";
 
@@ -109,5 +110,12 @@ const getDataFromDate = async (format: Format, date: Date) => {
     })
 }
 
-export { BACKEND_URL, Format, getDatesWithData, getMeasurementTimesForDate, getAllStations, getDataFromDate };
+const fetchSubstitutionHtml = async (): Promise<string> => {
+    const request = await fetch(`${BACKEND_URL}/api/edupage/substitution`);
+    const response: Response<string> = await request.json();
+
+    return response.response;
+}
+
+export { BACKEND_URL, Format, getDatesWithData, getMeasurementTimesForDate, getAllStations, getDataFromDate, fetchSubstitutionHtml };
 export type { Measurement, StationMeasurements, StationMeasurementPoints };

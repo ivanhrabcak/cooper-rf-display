@@ -1,7 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { MeasurementDisplay } from "./MeasurementDisplay";
+import { Substitution } from "./Substitution";
 import * as Api from '../api';
+import './styles/display.css';
 
-type NamedStationMeasurement = {
+export type NamedStationMeasurement = {
     date: Date,
     altitude: number,
     humidity: number,
@@ -16,9 +19,16 @@ type NamedStationMeasurement = {
     uptime: number,
     voc_conc: number,
     voltage: number,
+    co2_concentration: number,
 
     name: string
 }
+
+
+// #3b6a94
+// dalsie zvonenie
+// dalsie prazdniny
+
 
 export const Display = () => {
     const [displayedMeasurements, setDisplayedMeasurements]: [Array<NamedStationMeasurement[]>, any] = useState([]);
@@ -33,11 +43,9 @@ export const Display = () => {
             }
             
             const stations = await Api.getAllStations();
-            
             const measurements = await Api.getDataFromDate(Api.Format.JSON, new Date());
 
             const displayedMeasurements = [];
-
             for (let stationMeasurement of measurements) {
                 const stationName = stations.filter(x => x.id === stationMeasurement.id)[0].name;
 
@@ -58,18 +66,16 @@ export const Display = () => {
         fetchLatestData();
     }, []);
 
-
     return (
-        <>
-        {
-            displayedMeasurements.map((x) => {
-                const measurement = x as unknown as NamedStationMeasurement;
-
-                return (
-                    <>{ measurement.name }: {measurement.temperature}</>
-                )
-            })
-        }
-        </>
-    )
+        <div className="display">
+            {
+                displayedMeasurements.map((x) => {
+                    return (
+                        <MeasurementDisplay measurement={x as unknown as NamedStationMeasurement} />
+                    )
+                })
+            }
+            <Substitution />
+        </div>
+    );
 }

@@ -1,0 +1,12 @@
+.measurement {
+    display: flex;
+    font-size: 19px;
+}
+
+.measurement-name {
+    font-weight: 500;
+}
+
+.measurement-value {
+    margin-left: 5px
+}
