@@ -3,6 +3,7 @@ import { MeasurementDisplay } from "./MeasurementDisplay";
 import { Substitution } from "./Substitution";
 import * as Api from '../api';
 import './styles/display.css';
+import { TimeToNextLesson } from "./TimeToNextLesson";
 
 export type NamedStationMeasurement = {
     date: Date,
@@ -76,6 +77,7 @@ export const Display = () => {
                 })
             }
             <Substitution />
+            <TimeToNextLesson />
         </div>
     );
 }

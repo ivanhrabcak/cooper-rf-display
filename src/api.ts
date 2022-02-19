@@ -110,12 +110,31 @@ const getDataFromDate = async (format: Format, date: Date): Promise<Array<Statio
     })
 }
 
-const fetchSubstitutionHtml = async (): Promise<string> => {
-    const request = await fetch(`${BACKEND_URL}/api/edupage/substitution`);
+const fetchSubstitutionHtml = async (date: Date): Promise<string> => {
+    const formattedDate = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`;
+    const request = await fetch(`${BACKEND_URL}/api/edupage/substitution/${formattedDate}`);
     const response: Response<string> = await request.json();
 
     return response.response;
 }
 
-export { BACKEND_URL, Format, getDatesWithData, getMeasurementTimesForDate, getAllStations, getDataFromDate, fetchSubstitutionHtml };
+const fetchNextLessonTime = async (): Promise<Date | string> => {
+    const currentTime = new Date();
+    
+    const request = await fetch(`${BACKEND_URL}/api/edupage/nextlesson?hours=${currentTime.getHours()}&minutes=${currentTime.getMinutes()}`);
+    const response: Response<string> = await request.json();
+
+    if (response.response === "Weekend!") {
+        return "Víkend!";
+    }
+
+    const [hours, minutes] = response.response.split(":");
+
+    currentTime.setHours(parseInt(hours));
+    currentTime.setMinutes(parseInt(minutes));
+
+    return currentTime;
+}
+
+export { BACKEND_URL, Format, getDatesWithData, getMeasurementTimesForDate, getAllStations, getDataFromDate, fetchSubstitutionHtml, fetchNextLessonTime };
 export type { Measurement, StationMeasurements, StationMeasurementPoints };

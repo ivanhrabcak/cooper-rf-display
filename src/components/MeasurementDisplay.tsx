@@ -4,9 +4,6 @@ import { Measurement } from "./Measurement";
 import './styles/measurement-display.css';
 
 export const MeasurementDisplay = (props: { measurement: NamedStationMeasurement }) => {
-    
-
-
     return (
         <div className="card">
             <div className="card-title">Merania - {props.measurement.name}</div>

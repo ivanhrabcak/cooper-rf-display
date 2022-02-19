@@ -8,7 +8,7 @@ export const Substitution = () => {
 
     useEffect(() => {
         const fetchSubstitution = async () => {
-            const substitution = await Api.fetchSubstitutionHtml();
+            const substitution = await Api.fetchSubstitutionHtml(new Date());
 
             const [_, substitutionInfo] = substitution.split(":");
             const substitutingTeachers = substitutionInfo.split(",");
@@ -21,7 +21,7 @@ export const Substitution = () => {
 
     if (substitutingTeachers === null) {
         return (
-            <div className="substitution">
+            <div className="card substitution">
                 Loading...
             </div>
         )
