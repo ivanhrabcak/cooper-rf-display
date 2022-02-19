@@ -57,12 +57,12 @@ export const TimeToNextLesson = () => {
             clearInterval(intervalId);
         }
 
-        setInterval(() => {
+        setIntervalId(setInterval(() => {
             if (nextLessonTime !== null) {
                 setTimeDifference(difference(new Date(), nextLessonTime));
             }
-        }, 1000);
-    });
+        }, 1000));
+    }, [timeDifference]);
     
 
     return (
