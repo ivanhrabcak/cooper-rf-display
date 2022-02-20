@@ -17,6 +17,7 @@ export const Display = () => {
                     <TimeToNextLesson />
                     <Substitution />
                 </div>
+
                 <MeasurementsDisplay />                
         </div>
     );

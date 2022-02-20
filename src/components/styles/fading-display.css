@@ -1,0 +1,4 @@
+.hidden {
+    opacity: 0;
+    transition: all 250ms linear 2s;
+}
