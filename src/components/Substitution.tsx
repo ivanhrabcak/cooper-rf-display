@@ -30,7 +30,7 @@ export const Substitution = () => {
 
     return (
         <div className="card substitution">
-            <div className="card-title">Chýbajúci učitela:</div>
+            <div className="card-title">Chýbajúci učitelia:</div>
             {
                 (substitutingTeachers as Array<string>).map((x: string, i: number) => {
                     return (

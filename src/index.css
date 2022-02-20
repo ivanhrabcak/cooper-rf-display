@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(45deg, #C2DDA9, #DEECCC);
+  height: 100vh;
 }
 
 code {
@@ -13,19 +15,20 @@ code {
 }
 
 .card {
-    border: solid 1px;
-    border-radius: 10px;
-    width: fit-content;
-    margin: 10px;
-    padding: 50px;
-    backdrop-filter: blur(10px);
-    -webkit-box-shadow: 8px 10px 15px 0px rgba(50, 50, 50, 0.57);
-    -moz-box-shadow: 8px 10px 15px 0px rgba(50, 50, 50, 0.57);
-    box-shadow: 8px 10px 15px 0px rgba(50, 50, 50, 0.57);
+  color: black;
+  border: solid 1px;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 15px;
+  padding: 30px;
+  backdrop-filter: blur(1.5rem) grayscale(40%);
+  -webkit-box-shadow: 8px 10px 15px 0px rgba(50, 50, 50, 0.57);
+  -moz-box-shadow: 8px 10px 15px 0px rgba(50, 50, 50, 0.57);
+  box-shadow: 8px 10px 15px 0px rgba(50, 50, 50, 0.57);
 }
 
 .card-title {
-    font-size: 36px;
+    font-size: 26px;
     font-weight: 500;
     padding-bottom: 10px;
     text-decoration: underline;
