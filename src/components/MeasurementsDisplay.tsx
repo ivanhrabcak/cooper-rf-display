@@ -62,7 +62,7 @@ export const MeasurementsDisplay = () => {
 
 
     return (
-        <div className="card">
+        <div className="card big">
             <div className="card-title">Merania</div>
             <div className="grid center">
                 {

@@ -10,7 +10,7 @@ export const MeasurementDisplay = (props: { measurement: NamedStationMeasurement
         
             <div key={ props.measurement.date.getTime() } className="station-measurement">
                 <Measurement name="Nadmorská výška" value={ props.measurement.altitude.toString() + " m"}/>
-                <Measurement name="Vlhkosť" value={ props.measurement.humidity.toString() + "%" } />
+                <Measurement name="Vlhkosť vzduchu" value={ props.measurement.humidity.toString() + "%" } />
                 <Measurement name="Svetelnosť" value={ props.measurement.illuminance.toString() + " lux" } />
                 <Measurement name="Teplota" value={ props.measurement.temperature.toString() + "°C" } />
                 <Measurement name="Tlak" value={ props.measurement.pressure.toString() + " Pa" } />

@@ -34,6 +34,11 @@ type StationMeasurements = {
     measurements: Array<Measurement>
 }
 
+type NextDayPart = {
+    time: string,
+    part_type: string
+}
+
 type Station = {
     id: string,
     name: string
@@ -41,6 +46,11 @@ type Station = {
 
 enum Format {
     JSON, TEXT
+}
+
+type NextPart = {
+    time: Date | null,
+    partType: string
 }
 
 const getDatesWithData = async (): Promise<Array<Date>> => {
@@ -118,22 +128,22 @@ const fetchSubstitutionHtml = async (date: Date): Promise<string> => {
     return response.response;
 }
 
-const fetchNextLessonTime = async (): Promise<Date | string> => {
+const fetchNextLessonTime = async (): Promise<NextPart> => {
     const currentTime = new Date();
     
-    const request = await fetch(`${BACKEND_URL}/api/edupage/nextlesson?hours=${currentTime.getHours()}&minutes=${currentTime.getMinutes()}`);
-    const response: Response<string> = await request.json();
+    const request = await fetch(`${BACKEND_URL}/api/edupage/nextdaypart?hours=${currentTime.getHours()}&minutes=${currentTime.getMinutes()}`);
+    const response: Response<NextDayPart> = await request.json();
 
-    if (response.response === "Weekend!") {
-        return "Víkend!";
+    if (response.response.time === "Weekend!") {
+        return { time: null, partType: "Víkend!" };
     }
 
-    const [hours, minutes] = response.response.split(":");
+    const [hours, minutes] = response.response.time.split(":");
 
     currentTime.setHours(parseInt(hours));
     currentTime.setMinutes(parseInt(minutes));
 
-    return currentTime;
+    return { time: currentTime, partType: response.response.part_type };
 }
 
 export { BACKEND_URL, Format, getDatesWithData, getMeasurementTimesForDate, getAllStations, getDataFromDate, fetchSubstitutionHtml, fetchNextLessonTime };

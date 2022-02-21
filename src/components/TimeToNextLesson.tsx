@@ -9,6 +9,7 @@ type TimeDifference = {
 
 export const TimeToNextLesson = () => {
     const [isLoading, setLoading] = useState(true);
+    const [nextPartType, setNextPartType]: [null | string, any] = useState(null);
     const [nextLessonTime, setNextLessonTime]: [null | Date, any]  = useState(null);
     const [timeDifference, setTimeDifference]: [TimeDifference | null, any] = useState(null);
 
@@ -30,14 +31,16 @@ export const TimeToNextLesson = () => {
 
     useEffect(() => {
         const fetchNextLessonTime = async () => {
-            const date = await Api.fetchNextLessonTime();
+            const nextDayPart = await Api.fetchNextLessonTime();
 
-            if (typeof date === "string") {
+            if (nextDayPart.time === null) {
                 setNextLessonTime(null);
             }
             else {
-                setNextLessonTime(date);
+                setNextLessonTime(nextDayPart.time);
             }
+
+            setNextPartType(nextDayPart.partType);
 
             setLoading(false);
         }
@@ -63,16 +66,25 @@ export const TimeToNextLesson = () => {
             }
         }, 1000));
     }, [timeDifference]);
+
+    const padNumber = (n: number): string => {
+        if (n < 10) {
+            return `0${n}`;
+        }
+        else {
+            return `${n}`;
+        }
+    }
     
 
     return (
         <div className="card">
-            <div className="card-title">Ďalšia hodina</div>
+            <div className="card-title">Ďalšia { nextPartType === "BREAK" ? "prestávka" : "hodina" }</div>
                 <div className="time-difference">{ timeDifference === null ? 
                         <div>Víkend!</div> 
                         : 
                         <div>
-                            O { (timeDifference as TimeDifference).minutes }:{ (timeDifference as TimeDifference).seconds }
+                            { (timeDifference as TimeDifference).minutes }:{ padNumber((timeDifference as TimeDifference).seconds) }
                         </div> 
                     }
                 </div>

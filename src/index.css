@@ -18,7 +18,7 @@ code {
   color: black;
   border: solid 1px;
   border-radius: 10px;
-  width: fit-content;
+  /* width: fit-content; */
   margin: 15px;
   padding: 30px;
   backdrop-filter: blur(1.5rem) grayscale(40%);

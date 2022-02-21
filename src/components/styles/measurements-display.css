@@ -1,5 +1,9 @@
 .grid {
     justify-items: center;
     display: grid;
-    grid-template-columns: 320px 320px;
+    grid-template-columns: 50% 50%;
+}
+
+.big {
+    width: 90%;
 }
